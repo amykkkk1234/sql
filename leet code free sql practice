@@ -7,3 +7,8 @@ select v1.name as Employee from Employee v1
 INNER JOIN Employee v2 on v1.managerId=v2.id
 where v1.salary>v2.salary;
 
+# Q182. Duplicate Emails
+select email from Person
+group by email
+having count(email) > 1;
+
