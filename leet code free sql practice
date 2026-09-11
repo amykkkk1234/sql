@@ -12,3 +12,102 @@ select email from Person
 group by email
 having count(email) > 1;
 
+# Q183. Customers Who Never Order
+select Customers.name as Customers from Customers
+Left join Orders on orders.customerId=customers.id
+where Orders.customerId IS NULL;
+
+# Q196. Delete Duplicate Emails
+delete v1 from Person v1
+inner join Person v2 on v1.email=v2.email
+where v1.email=v2.email and v1.id>v2.id;
+
+# Q197. Rising Temperature
+select v1.id as Id from weather v1
+inner join weather v2 on datediff(v1.recordDate, v2.recordDate)=1
+where v1.temperature>v2.temperature;
+
+# Q511. Game Play Analysis I
+select player_id, min(event_date) as first_login
+from Activity
+group by player_id;
+
+# Q577. Employee Bonus
+SELECT Employee.name, Bonus.bonus from Employee
+Left join Bonus on Employee.empId=Bonus.empId
+where Bonus.bonus<1000 OR Bonus.bonus IS NULL;
+
+# Q584. Find Customer Referee
+select name from customer
+where referee_id!=2 or referee_id is null;
+
+# Q586. Customer Placing the Largest Number of Orders
+select customer_number from orders
+group by customer_number
+order by count(customer_number) DESC
+limit 1;
+
+# Q595. Big Countries
+select name, population, area from world
+where area>=3000000 or population>=25000000;
+
+# Q596. Classes With at Least 5 Students
+select class from courses
+group by class
+having count(class)>=5;
+
+#607. Sales Person
+select name from salesperson
+where sales_id not in(
+    select sales_id from orders
+    where com_id in(
+        select com_id from company
+        where name="RED"
+    )
+);
+
+# Q610. Triangle Judgement
+select x,y,z ,
+CASE 
+    WHEN (x+y > z and x+z > y and y+z > x) then 'Yes' 
+    else 'No' 
+end as triangle
+from Triangle;
+
+# Q619. Biggest Single Number
+select max(num) as num from (
+    select num from mynumbers
+    group by num
+    having count(num)=1
+) v2;
+
+# Q620. Not Boring Movies
+select * from cinema
+where id%2!=0 and description!='boring'
+order by rating DESC;
+
+# Q627. Swap Sex of Employees
+update salary
+set sex=if(sex='m','f','m');
+
+# Q1050. Actors and Directors Who Cooperated At Least Three Times
+select actor_id, director_id from actordirector
+group by actor_id, director_id
+having count(timestamp)>=3;
+
+# Q1068. Product Sales Analysis I
+select p.product_name, s.year, s.price from sales s
+left join product p on s.product_id=p.product_id
+
+# Q1075. Project Employees I
+select p.project_id, round(avg(e.experience_years),2) as average_years from project p
+left join employee e on e.employee_id=p.employee_id
+group by p.project_id;
+
+# Q1084. Sales Analysis III
+select p.product_id, p.product_name from product p
+left join sales s on p.product_id=s.product_id
+group by p.product_id
+having MIN(s.sale_date)>= '2019-01-01' AND MAX(s.sale_date)<= '2019-03-31';
+
+# Q
