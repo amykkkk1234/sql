@@ -110,4 +110,7 @@ left join sales s on p.product_id=s.product_id
 group by p.product_id
 having MIN(s.sale_date)>= '2019-01-01' AND MAX(s.sale_date)<= '2019-03-31';
 
-# Q
+# Q1141. User Activity for the Past 30 Days I
+select  activity_date as day, count(distinct user_id) as active_users from activity
+where activity_date BETWEEN DATE_SUB('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27'
+group by activity_date;
